@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess The Marbel</title>
+
+
+
+<!--================== STYLESHEET =======================================-->
+<style>
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    background-color: rgb(111, 6, 6);
+  
+}
+
+#heading{
+    width: 100%;
+    top: 20px;
+    color: white;
+    text-shadow: 5px 5px 5px black;
+    font-size: 35px;
+    text-align: center;
+    position: absolute;
+}
+
+#magicianstrip{
+    width: 100%;
+    margin: 80px 0px 0px 0px;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+}
+
+#magician{
+   height: 240px;
+   width: 400px;
+   background-size: contain;
+   background-repeat: no-repeat;
+   background-position: center;
+   border-radius: 10px;
+   background-color: black;
+   box-shadow: 20px 20px 30px black;
+   box-sizing: border-box;
+   transition: 900ms ease-in-out;
+}
+
+@keyframes shaking{
+    0%   {transform: rotate(20deg);}
+    10%  {transform: rotate(0deg);}
+    20%  {transform: rotate(-20deg);}
+    30%  {transform: rotate(0deg);}
+    40%  {transform: rotate(20deg);}
+    50%  {transform: rotate(0deg);}
+    60%  {transform: rotate(-20deg);}
+    70%  {transform: rotate(0deg);}
+    80%  {transform: rotate(20deg);}
+    90%  {transform: rotate(0deg);}
+    100% {transform: rotate(0deg);}
+}
+
+#boxstrip{
+    height: fit-content;
+    position: absolute;
+    width: 100%;
+    bottom: 150px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.track{
+    width: 200px;
+    height: 150px;
+    border-radius: 20px;
+    position: relative;
+}
+
+.gates{
+    height: 150px;
+    background:linear-gradient(90deg,black,gray,black);
+    color: white;
+    box-sizing: border-box;
+    border: 2px solid rgba(248, 248, 248, 0.11);
+    box-shadow: 10px 10px 20px black ;
+    width: 50%;
+    text-align: center;
+    padding: 50px 0px 0px 0px;
+    font-size: 30px;
+    border-radius: 10%;
+    position: absolute;
+    left: 0%;
+    transition: 400ms ease-in-out;
+    z-index: 2;
+    text-shadow: 2px 2px 2px black;
+    animation-name: none;
+    animation-delay: 400ms;
+    animation-duration: 600ms;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+}
+
+.contain{
+    background-color: rgb(135, 12, 12);
+    height: 100%;
+    position: absolute;
+    box-shadow: 10px 10px 10px black inset, 0px -10px 10px black inset ;
+    border: 2px solid rgb(0, 0, 0);
+    width: 50%;
+    right: 0px;
+    border-radius: 10%;
+    background-size:60px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#buttonstrip{
+    position: absolute;
+    width: 100%;
+    height: fit-content;
+    bottom: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+#switch{
+    height: 50px;
+    background-color: black;
+    width:200px;
+    border-radius: 10px;
+    font-size: 30px;
+    font-weight: bolder;
+    border: 1px solid rgba(255, 254, 254, 0.143);
+    box-sizing: border-box;
+    box-shadow: 10px 10px 20px black;
+    color:white;
+    text-shadow: 2px 2px 2px black;
+    z-index: 5;
+}
+
+#switch:hover{
+    background-color: rgb(158, 15, 15);
+    color: black;
+    text-shadow: none;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.gates:hover{
+    background-color: rgb(158, 15, 15);
+    color: black;
+    text-shadow: none;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+#scorestrip{
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    font-weight: lighter;
+    height: fit-content;
+    display: flex;
+    justify-content: space-evenly;
+    top:370px;
+    color:white;
+    font-size: 20px;
+    box-sizing: border-box;
+    padding: 0px 0px 0px 20px;
+    text-shadow: 5px 5px 5px black;
+}
+
+
+</style>
+
+<!--================== STYLESHEET =======================================-->
+
+
+</head>
+
+
+<body>
+
+
+    <h1 id="heading">Find The Marble</h1>
+    
+    <div id="magicianstrip">
+
+          <video id="magician">
+                <source src="video/magician.mp4">
+          </div>
+      
+         
+    </div>
+
+
+    <div id="boxstrip">
+
+          <div class="track">
+                <div class="gates" onclick="entr('0')">A</div>
+                <div class="contain"></div>
+          </div>
+
+          <div class="track">
+               <div class="gates" onclick="entr('1')">B</div>
+               <div class="contain"></div>
+          </div>
+
+         <div class="track">
+               <div class="gates" onclick="entr('2')">C</div>
+               <div class="contain"></div>
+        </div>
+
+    </div>
+
+    <div id="buttonstrip">
+          <button id="switch">Start</button>
+    </div>
+
+   
+
+<!--================== SCRIPTSHEET =======================================-->
+
+<script>
+
+const swtchbtn = document.getElementById("switch");
+const gates = document.querySelectorAll(".gates");
+const contain = document.querySelectorAll(".contain");
+const magician = document.getElementById("magician");
+const heading = document.getElementById("heading");
+let arr= ["A","B","C"];
+let idx;
+let Obj = {
+    A : "url(images/full_moon.png)",
+    B : "url(images/full_moon.png)",
+    C : "url(images/full_moon.png)",
+
+}
+let ball="none";
+let choosed = "none";
+let stat = "off";
+
+let gate01 = gates[0];
+let gate02 = gates[1];
+let gate03 = gates[2];
+
+
+
+
+
+function entr(i){
+ choosed = gates[i].textContent;
+
+ if (choosed==ball){
+    document.body.style.backgroundColor="green";
+    heading.textContent="Right";
+    gate01.style.left="0%";
+    gate02.style.left="0%";
+    gate03.style.left="0%";
+    
+ }
+
+ else {
+    document.body.style.backgroundColor="rgb(10, 10, 161)";
+    gate01.style.left="0%";
+    gate02.style.left="0%";
+    gate03.style.left="0%";
+    heading.textContent="Wrong";
+ }
+ 
+}
+
+function start(){
+
+if (stat==="off"){
+
+  magician.play();
+
+  setTimeout(()=>{
+
+  gate01.style.animationName="shaking";
+  gate02.style.animationName="shaking";
+  gate03.style.animationName="shaking";
+  gate01.style.left="50%";
+  gate02.style.left="50%";
+  gate03.style.left="50%";
+  stat="on";
+  idx = Math.floor(Math.random()*3);
+  ball=arr[idx];
+  console.log(idx);
+  swtchbtn.textContent="Clear";
+
+
+  setTimeout(()=>{
+   contain[idx].style.backgroundImage=Obj[ball];
+   heading.textContent="Choose The Right Box";
+  },1000);
+  
+  },900);
+
+  gate01.style.animationName="none";
+  gate02.style.animationName="none";
+  gate03.style.animationName="none";
+  
+}
+
+else{
+ stat="off";
+ gate01.style.left="0%";
+ gate02.style.left="0%";
+ gate03.style.left="0%";
+ magician.style.backgroundImage="url(images/smiling.webp";
+}
+
+
+swtchbtn.textContent="Start";
+contain[idx].style.backgroundImage="none";
+
+}
+
+
+
+swtchbtn.addEventListener("click", start)
+
+</script>
+
+<!--================== SCRIPTSHEET =======================================-->
+
+</body>
+
+</html>
